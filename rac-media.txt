@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp codebase="https://R_HOSTNAME:443/" spec="1.0+">
+<information>
+  <title>Virtual Media Client</title>
+  <vendor>Hewlett-Packard Corporation</vendor>
+   <icon href="http://R_HOSTNAME:80/images/logo.gif" kind="splash"/>
+   <shortcut online="true"/>
+ </information>
+ <application-desc main-class="com.avocent.vm.VirtualMedia">
+   <argument>ip=R_HOSTNAME</argument>
+   <argument>port=2068</argument>
+   <argument>user=admin</argument>
+   <argument>password=R_PASSWORD</argument>
+   <argument>title=R_HOSTNAME</argument>
+ </application-desc>
+ <security>
+   <all-permissions/>
+ </security>
+ <resources>
+   <j2se version="1.6 1.5 1.4+"/>
+   <jar href="http://R_HOSTNAME:80/software/avctVM.jar" download="eager" main="true" />
+   <jar href="http://R_HOSTNAME:80/software/jpcsc.jar" download="eager"/>
+ </resources>
+ <resources os="Windows">
+   <nativelib href="http://R_HOSTNAME:80/software/avctVMWin32.jar" download="eager"/>
+  </resources>
+  <resources os="Linux">
+    <nativelib href="http://R_HOSTNAME:80/software/avctVMLinux.jar" download="eager"/>
+  </resources>
+</jnlp>

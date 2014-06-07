@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp codebase="https://R_HOSTNAME:443/" spec="1.0+">
+<information>
+  <title>Virtual KVM Client</title>
+  <vendor>Hewlett-Packard Corporation</vendor>
+   <icon href="http://R_HOSTNAME:80/images/logo.gif" kind="splash"/>
+   <shortcut online="true"/>
+ </information>
+ <application-desc main-class="com.avocent.kvm.client.Main">
+   <argument>title=Virtual Console Session - R_HOSTNAME</argument>
+   <argument>ip=R_HOSTNAME</argument>
+   <argument>platform=ast2050</argument>
+   <argument>vmprivilege=true</argument>
+   <argument>user=admin</argument>
+   <argument>passwd=R_PASSWORD</argument>
+   <argument>kmport=2068</argument>
+   <argument>vport=2068</argument>
+   <argument>apcp=1</argument>
+   <argument>version=2</argument>
+ </application-desc>
+ <security>
+   <all-permissions/>
+ </security>
+ <resources>
+   <j2se version="1.6 1.5 1.4+"/>
+   <jar href="http://R_HOSTNAME:80/software/avctKVM.jar" download="eager" main="true" />
+ </resources>
+ <resources os="Windows">
+   <nativelib href="http://R_HOSTNAME:80/software/avctKVMIOWin32.jar" download="eager"/>
+ </resources>
+  <resources os="Linux">
+    <nativelib href="http://R_HOSTNAME:80/software/avctKVMIOLinux.jar" download="eager"/>
+  </resources>
+</jnlp>

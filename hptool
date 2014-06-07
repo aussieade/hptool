@@ -1,0 +1,36 @@
+#!/bin/bash
+
+IPMIUSER="admin"
+IPMIPASS="ipmipass"
+
+HOST=$1
+shift
+
+openrac () {
+  read -e -s -p "Password: " PASS
+  echo -ne "\r         \r"
+  sed -e "s#R_PASSWORD#${PASS}#" -e "s#R_HOSTNAME#${HOST}#" \
+    ~/.rac/rac-${2}.txt >~/.rac/.rac.jnlp
+  javaws ~/.rac/.rac.jnlp
+  rm ~/.rac/.rac.jnlp
+}
+
+case $1 in
+  console|media)
+    openrac $HOST $1
+    ;;
+  sensors)
+    ipmitool -H $HOST -U $IPMIUSER -P $IPMIPASS sdr|egrep "_[TF]" | gawk '{
+      s[1]="cpu";s[2]="mb";s[3]="amb";s[4]="fan";
+      val=gensub("no|disabled","n/a","g",$3);
+      if(val != "n/a") val=sprintf("%s%s",val,NR<4 ? "°c" : "rpm");
+      printf("%s: %-5s ",s[NR],val)
+    }'; echo
+    ;;
+  status)
+    ipmitool -H $HOST -U $IPMIUSER -P $IPMIPASS power status
+    ;;
+  *)
+    ipmitool -H $HOST -U $IPMIUSER -P $IPMIPASS $*
+    ;;
+esac
